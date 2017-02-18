@@ -4,12 +4,12 @@ import haxe.io.Bytes; // TODO: use tink_chunk
 
 using tink.CoreApi;
 
-abstract Address(Base) to Base {
+abstract Address(AddressBase) {
 	
 	static var INVALID_FORMAT = new Error('Invalid IP format');
 	
 	function new(version, bytes)
-		this = new Base(version, bytes);
+		this = new AddressBase(version, bytes);
 		
 	public static function parse(v:String) {
 		return
@@ -40,12 +40,15 @@ abstract Address(Base) to Base {
 	
 	@:to
 	public function toString() {
-		// TODO
+		return switch this.version {
+			case V4: [for(i in 0...4) this.bytes.get(i)].join('.');
+			case V6: throw 'not implemented';
+		}
 		return this.bytes.toHex();
 	}
 }
 
-private class Base {
+private class AddressBase {
 	public var version(default, null):Version;
 	public var bytes(default, null):Bytes;
 	
