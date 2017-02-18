@@ -14,5 +14,7 @@
   ],
   "releasenote": "WIP",
   "version": "0.0.1",
-  "dependencies": {}
+  "dependencies": {
+    "tink_core": ""
+  }
 }
